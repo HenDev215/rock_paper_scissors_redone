@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper AND Scissors</title>
+</head>
+<body>
+    <div class="displayResult">
+        <h2 id="gameWinner"></h2>
+        <p id="roundWinner"></p>
+    </div>
+
+    <div class="buttons">
+        <button id="rockButton">ROCK</button>
+        <button id="paperButton">PAPER</button>
+        <button id="scissorsButton">SCISSORS</button>
+    </div>
+</body>
+<script>
+
+    const rockButton = document.getElementById('rockButton');
+    const paperButton = document.getElementById('paperButton');
+    const scissorsButton = document.getElementById('scissorsButton');
+    const roundWinner = document.getElementById('roundWinner');
+    const gameWinner = document.getElementById('gameWinner');
+    let computerPick;
+    
+
+    let playerScore = 0;
+    let computerScore = 0;
+    
+    const getComputerChoice = function () {
+        computerPick = Math.floor(Math.random() * (4 - 1) + 1);
+        
+
+        switch (computerPick) {
+            case 1:
+                computerPick = 'rock';
+                break;
+            case 2:
+                computerPick = 'paper';
+                break;
+            case 3: 
+                computerPick = 'scissors'
+                break;
+        };
+        console.log(computerPick);
+        return computerPick;
+    }
+
+   
+
+    function playRound(playerSelection, computerSelection) {
+        const winnerRound = roundWinner;
+
+        if ((playerSelection === 'rock' && computerSelection === 'scissors') ||
+            (playerSelection === 'paper' && computerSelection === 'rock') ||
+            (playerSelection === 'scissors' && computerSelection === 'paper')){
+            playerScore++   
+            winnerRound.innerText = `YOU WIN THE ROUND. THE COMPUTER PICKED ${computerPick}, THE SCORE IS ${playerScore} to ${computerScore}`;
+        } else if (playerSelection === computerSelection) {
+            winnerRound.innerText = 'ROUND TIE. TRY AGAIN';
+        }  else {
+            computerScore++
+            winnerRound.innerText = `YOU LOSE THE ROUND. THE COMPUTER PICKED ${computerPick}, THE SCORE IS ${playerScore} to ${computerScore}`;
+        }
+
+        if (playerScore == 5) {
+            gameWinner.innerText = 'YOU WON THE FUCKIN GAME!';
+        } else if (computerScore == 5) {
+            gameWinner.innerText = 'THE COMPUTER WINS THE GAME, YOU SUCK'
+        }
+    }
+
+    rockButton.addEventListener("click", function() {
+        let playerSelection = 'rock';
+        let computerSelection = getComputerChoice();
+        playRound(playerSelection, computerSelection);
+    })
+
+    paperButton.addEventListener("click", function() {
+        let playerSelection = 'paper';
+        let computerSelection = getComputerChoice();
+        playRound(playerSelection, computerSelection);
+    })
+
+    scissorsButton.addEventListener("click", function() {
+        let playerSelection = 'scissors';
+        let computerSelection = getComputerChoice();
+        playRound(playerSelection, computerSelection);
+    })
+    
+    
+
+    // function game () {
+        
+    //     for (let i = 0; i < 5; i++) {
+    //         let playerSelection = prompt('Rock, Paper, or Scissors?').toLowerCase();;
+    //         const computerSelection = getComputerChoice();
+    //         playRound(playerSelection, computerSelection);
+    //     };
+
+    //     if (playerScore > computerScore) {
+    //         console.log('YOU HAVE WON THE GAME')
+    //     } else {
+    //         console.log('YOU LOSE THE GAME')
+    //     }
+    // }
+
+    // game();
+
+
+</script>
+</html>
